@@ -1,5 +1,6 @@
 /* -----------------------------------------------------------------
  * Programmer(s): Mustafa Aggul @ SMU
+ * Based on sundials_sptfqmr.c code, written by Daniel Reynolds @ SMU
  * -----------------------------------------------------------------
  * SUNDIALS Copyright Start
  * Copyright (c) 2002-2024, Lawrence Livermore National Security
@@ -41,7 +42,7 @@
  * Function to create a new linear solver
  */
 
-SUNLinearSolver SUNLinSol_SComplex(N_Vector y, int pretype, int maxl,
+SUNLinearSolver SUNLinSol_SPTFQMR(N_Vector y, int pretype, int maxl,
                                SUNContext sunctx)
 {
   SUNLinearSolver S;
@@ -61,21 +62,21 @@ SUNLinearSolver SUNLinSol_SComplex(N_Vector y, int pretype, int maxl,
   if (S == NULL) { return NULL; }
 
   /* Attach operations */
-  S->ops->gettype           = SUNLinSolGetType_SComplex;
-  S->ops->getid             = SUNLinSolGetID_SComplex;
-  S->ops->setatimes         = SUNLinSolSetATimes_SComplex;
-  S->ops->setpreconditioner = SUNLinSolSetPreconditioner_SComplex;
-  S->ops->setscalingvectors = SUNLinSolSetScalingVectors_SComplex;
-  S->ops->setzeroguess      = SUNLinSolSetZeroGuess_SComplex;
-  S->ops->initialize        = SUNLinSolInitialize_SComplex;
-  S->ops->setup             = SUNLinSolSetup_SComplex;
-  S->ops->solve             = SUNLinSolSolve_SComplex;
-  S->ops->numiters          = SUNLinSolNumIters_SComplex;
-  S->ops->resnorm           = SUNLinSolResNorm_SComplex;
-  S->ops->resid             = SUNLinSolResid_SComplex;
-  S->ops->lastflag          = SUNLinSolLastFlag_SComplex;
-  S->ops->space             = SUNLinSolSpace_SComplex;
-  S->ops->free              = SUNLinSolFree_SComplex;
+  S->ops->gettype           = SUNLinSolGetType_SPTFQMR;
+  S->ops->getid             = SUNLinSolGetID_SPTFQMR;
+  S->ops->setatimes         = SUNLinSolSetATimes_SPTFQMR;
+  S->ops->setpreconditioner = SUNLinSolSetPreconditioner_SPTFQMR;
+  S->ops->setscalingvectors = SUNLinSolSetScalingVectors_SPTFQMR;
+  S->ops->setzeroguess      = SUNLinSolSetZeroGuess_SPTFQMR;
+  S->ops->initialize        = SUNLinSolInitialize_SPTFQMR;
+  S->ops->setup             = SUNLinSolSetup_SPTFQMR;
+  S->ops->solve             = SUNLinSolSolve_SPTFQMR;
+  S->ops->numiters          = SUNLinSolNumIters_SPTFQMR;
+  S->ops->resnorm           = SUNLinSolResNorm_SPTFQMR;
+  S->ops->resid             = SUNLinSolResid_SPTFQMR;
+  S->ops->lastflag          = SUNLinSolLastFlag_SPTFQMR;
+  S->ops->space             = SUNLinSolSpace_SPTFQMR;
+  S->ops->free              = SUNLinSolFree_SPTFQMR;
 
   /* Create content */
   content = NULL;
@@ -139,7 +140,7 @@ SUNLinearSolver SUNLinSol_SComplex(N_Vector y, int pretype, int maxl,
  * Function to set the type of preconditioning for SPTFQMR to use
  */
 
-SUNErrCode SUNLinSolSetPrecType_SComplex(SUNLinearSolver S, int pretype)
+SUNErrCode SUNLinSolSetPrecType_SPTFQMR(SUNLinearSolver S, int pretype)
 {
   /* Set pretype */
   CS_CONTENT(S)->pretype = pretype;
@@ -150,7 +151,7 @@ SUNErrCode SUNLinSolSetPrecType_SComplex(SUNLinearSolver S, int pretype)
  * Function to set the maximum number of iterations for SPTFQMR to use
  */
 
-SUNErrCode SUNLinSolSetMaxl_SComplex(SUNLinearSolver S, int maxl)
+SUNErrCode SUNLinSolSetMaxl_SPTFQMR(SUNLinearSolver S, int maxl)
 {
   /* Check for legal pretype */
   if (maxl <= 0) { maxl = CS_MAXL_DEFAULT; }
@@ -166,17 +167,17 @@ SUNErrCode SUNLinSolSetMaxl_SComplex(SUNLinearSolver S, int maxl)
  * -----------------------------------------------------------------
  */
 
-SUNLinearSolver_Type SUNLinSolGetType_SComplex(SUNLinearSolver S)
+SUNLinearSolver_Type SUNLinSolGetType_SPTFQMR(SUNLinearSolver S)
 {
   return (SUNLINEARSOLVER_ITERATIVE);
 }
 
-SUNLinearSolver_ID SUNLinSolGetID_SComplex(SUNLinearSolver S)
+SUNLinearSolver_ID SUNLinSolGetID_SPTFQMR(SUNLinearSolver S)
 {
   return (SUNLINEARSOLVER_CUSTOM);
 }
 
-SUNErrCode SUNLinSolInitialize_SComplex(SUNLinearSolver S)
+SUNErrCode SUNLinSolInitialize_SPTFQMR(SUNLinearSolver S)
 {
   CSSUNLinearSolverContent content;
 
@@ -198,7 +199,7 @@ SUNErrCode SUNLinSolInitialize_SComplex(SUNLinearSolver S)
   return SUN_SUCCESS;
 }
 
-SUNErrCode SUNLinSolSetATimes_SComplex(SUNLinearSolver S, void* ATData,
+SUNErrCode SUNLinSolSetATimes_SPTFQMR(SUNLinearSolver S, void* ATData,
                                    SUNATimesFn ATimes)
 {
   /* set function pointers to integrator-supplied ATimes routine
@@ -208,7 +209,7 @@ SUNErrCode SUNLinSolSetATimes_SComplex(SUNLinearSolver S, void* ATData,
   return SUN_SUCCESS;
 }
 
-SUNErrCode SUNLinSolSetPreconditioner_SComplex(SUNLinearSolver S, void* PData,
+SUNErrCode SUNLinSolSetPreconditioner_SPTFQMR(SUNLinearSolver S, void* PData,
                                            SUNPSetupFn Psetup,
                                            SUNPSolveFn Psolve)
 {
@@ -220,7 +221,7 @@ SUNErrCode SUNLinSolSetPreconditioner_SComplex(SUNLinearSolver S, void* PData,
   return SUN_SUCCESS;
 }
 
-SUNErrCode SUNLinSolSetScalingVectors_SComplex(SUNLinearSolver S, N_Vector s1,
+SUNErrCode SUNLinSolSetScalingVectors_SPTFQMR(SUNLinearSolver S, N_Vector s1,
                                            N_Vector s2)
 {
   /* set N_Vector pointers to integrator-supplied scaling vectors,
@@ -230,14 +231,14 @@ SUNErrCode SUNLinSolSetScalingVectors_SComplex(SUNLinearSolver S, N_Vector s1,
   return SUN_SUCCESS;
 }
 
-SUNErrCode SUNLinSolSetZeroGuess_SComplex(SUNLinearSolver S, sunbooleantype onoff)
+SUNErrCode SUNLinSolSetZeroGuess_SPTFQMR(SUNLinearSolver S, sunbooleantype onoff)
 {
   /* set flag indicating a zero initial guess */
   CS_CONTENT(S)->zeroguess = onoff;
   return SUN_SUCCESS;
 }
 
-int SUNLinSolSetup_SComplex(SUNLinearSolver S, SUNMatrix A)
+int SUNLinSolSetup_SPTFQMR(SUNLinearSolver S, SUNMatrix A)
 {
   int status = SUN_SUCCESS;
   SUNPSetupFn Psetup;
@@ -264,7 +265,7 @@ int SUNLinSolSetup_SComplex(SUNLinearSolver S, SUNMatrix A)
   return SUN_SUCCESS;
 }
 
-int SUNLinSolSolve_SComplex(SUNLinearSolver S, SUNMatrix A, N_Vector x,
+int SUNLinSolSolve_SPTFQMR(SUNLinearSolver S, SUNMatrix A, N_Vector x,
                         N_Vector b, sunrealtype delta)
 {
   /* local data and shortcut variables */
@@ -748,27 +749,27 @@ int SUNLinSolSolve_SComplex(SUNLinearSolver S, SUNMatrix A, N_Vector x,
   }
 }
 
-int SUNLinSolNumIters_SComplex(SUNLinearSolver S)
+int SUNLinSolNumIters_SPTFQMR(SUNLinearSolver S)
 {
   return (CS_CONTENT(S)->numiters);
 }
 
-sunrealtype SUNLinSolResNorm_SComplex(SUNLinearSolver S)
+sunrealtype SUNLinSolResNorm_SPTFQMR(SUNLinearSolver S)
 {
   return (CS_CONTENT(S)->resnorm);
 }
 
-N_Vector SUNLinSolResid_SComplex(SUNLinearSolver S)
+N_Vector SUNLinSolResid_SPTFQMR(SUNLinearSolver S)
 {
   return (CS_CONTENT(S)->vtemp1);
 }
 
-sunindextype SUNLinSolLastFlag_SComplex(SUNLinearSolver S)
+sunindextype SUNLinSolLastFlag_SPTFQMR(SUNLinearSolver S)
 {
   return (LASTFLAG(S));
 }
 
-SUNErrCode SUNLinSolSpace_SComplex(SUNLinearSolver S, long int* lenrwLS,
+SUNErrCode SUNLinSolSpace_SPTFQMR(SUNLinearSolver S, long int* lenrwLS,
                                long int* leniwLS)
 {
   sunindextype liw1, lrw1;
@@ -782,7 +783,7 @@ SUNErrCode SUNLinSolSpace_SComplex(SUNLinearSolver S, long int* lenrwLS,
   return SUN_SUCCESS;
 }
 
-SUNErrCode SUNLinSolFree_SComplex(SUNLinearSolver S)
+SUNErrCode SUNLinSolFree_SPTFQMR(SUNLinearSolver S)
 {
   if (S == NULL) { return SUN_SUCCESS; }
 

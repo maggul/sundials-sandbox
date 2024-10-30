@@ -1,5 +1,6 @@
 /* -----------------------------------------------------------------
  * Programmer(s): Mustafa Aggul @ SMU
+ * Based on sundials_sptfqmr.c code, written by Daniel Reynolds @ SMU
  * -----------------------------------------------------------------
  * SUNDIALS Copyright Start
  * Copyright (c) 2002-2024, Lawrence Livermore National Security
@@ -70,38 +71,38 @@ typedef struct _CSSUNLinearSolverContent* CSSUNLinearSolverContent;
  * Exported Functions
  * -------------------------------------- */
 
-SUNDIALS_EXPORT SUNLinearSolver SUNLinSol_SComplex(N_Vector y, int pretype,
+SUNDIALS_EXPORT SUNLinearSolver SUNLinSol_SPTFQMR(N_Vector y, int pretype,
                                                int maxl, SUNContext sunctx);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSetPrecType_SComplex(SUNLinearSolver S,
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSetPrecType_SPTFQMR(SUNLinearSolver S,
                                                      int pretype);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSetMaxl_SComplex(SUNLinearSolver S, int maxl);
-SUNDIALS_EXPORT SUNLinearSolver_Type SUNLinSolGetType_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT SUNLinearSolver_ID SUNLinSolGetID_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolInitialize_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSetATimes_SComplex(SUNLinearSolver S,
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSetMaxl_SPTFQMR(SUNLinearSolver S, int maxl);
+SUNDIALS_EXPORT SUNLinearSolver_Type SUNLinSolGetType_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT SUNLinearSolver_ID SUNLinSolGetID_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT SUNErrCode SUNLinSolInitialize_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSetATimes_SPTFQMR(SUNLinearSolver S,
                                                    void* A_data,
                                                    SUNATimesFn ATimes);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSetPreconditioner_SComplex(SUNLinearSolver S,
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSetPreconditioner_SPTFQMR(SUNLinearSolver S,
                                                            void* P_data,
                                                            SUNPSetupFn Pset,
                                                            SUNPSolveFn Psol);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSetScalingVectors_SComplex(SUNLinearSolver S,
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSetScalingVectors_SPTFQMR(SUNLinearSolver S,
                                                            N_Vector s1,
                                                            N_Vector s2);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSetZeroGuess_SComplex(SUNLinearSolver S,
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSetZeroGuess_SPTFQMR(SUNLinearSolver S,
                                                       sunbooleantype onoff);
-SUNDIALS_EXPORT int SUNLinSolSetup_SComplex(SUNLinearSolver S, SUNMatrix A);
-SUNDIALS_EXPORT int SUNLinSolSolve_SComplex(SUNLinearSolver S, SUNMatrix A,
+SUNDIALS_EXPORT int SUNLinSolSetup_SPTFQMR(SUNLinearSolver S, SUNMatrix A);
+SUNDIALS_EXPORT int SUNLinSolSolve_SPTFQMR(SUNLinearSolver S, SUNMatrix A,
                                         N_Vector x, N_Vector b,
                                         sunrealtype tol);
-SUNDIALS_EXPORT int SUNLinSolNumIters_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT sunrealtype SUNLinSolResNorm_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT N_Vector SUNLinSolResid_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT sunindextype SUNLinSolLastFlag_SComplex(SUNLinearSolver S);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolSpace_SComplex(SUNLinearSolver S,
+SUNDIALS_EXPORT int SUNLinSolNumIters_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT sunrealtype SUNLinSolResNorm_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT N_Vector SUNLinSolResid_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT sunindextype SUNLinSolLastFlag_SPTFQMR(SUNLinearSolver S);
+SUNDIALS_EXPORT SUNErrCode SUNLinSolSpace_SPTFQMR(SUNLinearSolver S,
                                                long int* lenrwLS,
                                                long int* leniwLS);
-SUNDIALS_EXPORT SUNErrCode SUNLinSolFree_SComplex(SUNLinearSolver S);
+SUNDIALS_EXPORT SUNErrCode SUNLinSolFree_SPTFQMR(SUNLinearSolver S);
 
 #ifdef __cplusplus
 }

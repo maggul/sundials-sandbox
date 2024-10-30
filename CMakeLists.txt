@@ -25,11 +25,19 @@ target_link_libraries(testComplexNVector PUBLIC
   SUNDIALS::core
   m)
 
-add_executable(testComplexSUNLinearSolver
-  testComplexSUNLinearSolver.c
+add_executable(test_SPTFQRM
+  test_SPTFQRM.c
   sunlinsol_sptfqmrcomplex.c
   nvector_serialcomplex.c)
-target_link_libraries(testComplexSUNLinearSolver PUBLIC
+target_link_libraries(test_SPTFQRM PUBLIC
+  SUNDIALS::core
+  m)
+
+add_executable(test_PCG
+test_PCG.c
+  sunlinsol_pcgcomplex.c
+  nvector_serialcomplex.c)
+target_link_libraries(test_PCG PUBLIC
   SUNDIALS::core
   m)
 
