@@ -19,8 +19,7 @@ cmake -DSUNDIALS_DIR=/usr/local/sundials/lib/cmake/sundials ..
 make
 ```
 
-This has been tested using SUNDIALS v7.0.0.  Older SUNDIALS installations may be used by changing to a different branch:
+This has been tested using SUNDIALS v7.1.0.  Older SUNDIALS installations may be used by changing to a different branch:
 
-* `main`: designed to work with SUNDIALS v7.0.0 (should work with any v7.x.x)
+* `main`: designed to work with SUNDIALS v7.1.0 (should work with any v > v7.1.x)
 
-* `sundials-v6.6.1`: designed to work with SUNDIALS v6.6.1 (should work with any v6.x.x)
