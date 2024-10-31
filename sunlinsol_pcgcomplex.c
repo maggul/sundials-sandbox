@@ -337,7 +337,7 @@ int SUNLinSolSolve_PCG(SUNLinearSolver S, SUNMatrix nul,
   }
 
   /* Initialize rz to <r,z> */
-  rz = N_VDotProd_SComplex(r, z);
+  rz = N_VDotProd_SComplex(z, r);
 
   /* Copy z to p */
   N_VScale_SComplex(ONE, z, p);
@@ -359,7 +359,7 @@ int SUNLinSolSolve_PCG(SUNLinearSolver S, SUNMatrix nul,
     }
 
     /* Calculate alpha = <r,z> / <Ap,p> */
-    alpha = N_VDotProd_SComplex(Ap, p);
+    alpha = N_VDotProd_SComplex(p, Ap);
     alpha = rz / alpha;
 
     /* Update x = x + alpha*p */
@@ -415,7 +415,7 @@ int SUNLinSolSolve_PCG(SUNLinearSolver S, SUNMatrix nul,
 
     /* update rz */
     rz_old = rz;
-    rz     = N_VDotProd_SComplex(r, z);
+    rz     = N_VDotProd_SComplex(z, r);
 
     /* Calculate beta = <r,z> / <r_old,z_old> */
     beta = rz / rz_old;

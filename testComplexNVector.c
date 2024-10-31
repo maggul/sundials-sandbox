@@ -504,7 +504,7 @@ int main(int argc, char* argv[])
   N_VConst_SComplex(TWO - HALFi, X);
   N_VConst_SComplex(ONE + ONEi, Y);
   sunindextype global_length = N_VGetLength_SComplex(X);
-  sunindextype ans = N_VDotProd_SComplex(X, Y);
+  sunindextype ans = N_VDotProd_SComplex(Y, X);
 
   /* ans should equal global vector length */
   if (SUNRCompare(ans, ((suncomplextype)global_length)*(ONE + HALF + NEG_TWOi + NEG_HALFi)))
