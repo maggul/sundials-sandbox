@@ -43,6 +43,7 @@
 #define SOMECOMPLEXNUMBERd    (10.0) /* diag must be high enough to ensure positive defineteness */
 #define SOMECOMPLEXNUMBERup   (-1.0 + 2.0*I)
 #define SOMECOMPLEXNUMBERlow  (conj(SOMECOMPLEXNUMBERup))
+#define SOMESCALING           (2.5)
 
 /* user data structure */
 typedef struct
@@ -255,10 +256,10 @@ int main(int argc, char* argv[])
 
   /* set scaling vectors */
   vecdata = N_VGetArrayPointer_SComplex(ProbData.s1);
-  for (i = 0; i < ProbData.N; i++) { vecdata[i] = ONE; }
+  for (i = 0; i < ProbData.N; i++) { vecdata[i] = SOMESCALING; }
 
   vecdata = N_VGetArrayPointer_SComplex(ProbData.s2);
-  for (i = 0; i < ProbData.N; i++) { vecdata[i] = ONE; }
+  for (i = 0; i < ProbData.N; i++) { vecdata[i] = SOMESCALING; }
 
   /* Fill x vector with scaled version */
   N_VDiv_SComplex(xhat, ProbData.s2, x);
