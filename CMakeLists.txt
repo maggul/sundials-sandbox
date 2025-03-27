@@ -73,3 +73,11 @@ target_link_libraries(complex_erk_NVector_serial_complex PUBLIC
 target_link_libraries(complex_IMEX PUBLIC
   SUNDIALS::arkode
   m)
+
+  add_executable(complex_CVODE
+  complex_CVODE.c
+  nvector_serialcomplex.c
+  sunlinsol_sptfqmrcomplex.c)
+target_link_libraries(complex_CVODE PUBLIC
+  SUNDIALS::cvode
+  m)
